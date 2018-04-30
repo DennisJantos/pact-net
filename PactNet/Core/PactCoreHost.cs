@@ -24,7 +24,8 @@ namespace PactNet.Core
             pactCoreDir += "pact-win32";
             expectedPackage = "PactNet.Windows";
 #else
-            var pactCoreDir = $"{Constants.BuildDirectory}{Path.DirectorySeparatorChar}"; //OS specific version will be appended
+            
+            var pactCoreDir = $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}"; //OS specific version will be appended
 
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
             {
@@ -56,7 +57,7 @@ namespace PactNet.Core
 
             if (!Directory.Exists(pactCoreDir))
             {
-                throw new PactFailureException($"Please install the relevant platform and architecture specific PactNet dependency from Nuget. Based on your current setup you should install '{expectedPackage}'.");
+                throw new PactFailureException($"Path not found: {pactCoreDir}! Constant.BuildDirectory: {Constants.BuildDirectory}. Please install the relevant platform and architecture specific PactNet dependency from Nuget. Based on your current setup you should install '{expectedPackage}'.");
 
                 //TODO: Fall back to using the locally installed ruby and packaged assets
             }
